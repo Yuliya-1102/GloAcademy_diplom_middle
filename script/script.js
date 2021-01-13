@@ -4,11 +4,13 @@ window.addEventListener('DOMContentLoaded', function(){
     // выпадающее меню и модальные окна
     const togglePopUp = () => {
         const body = document.querySelector('body');
-        const clubsListUl = document.querySelector('.clubs-list ul');
+        const clubsList = document.querySelector('.clubs-list');
+        const clubsListUl = clubsList.querySelector('ul');
         const freeVisitForm = document.getElementById('free_visit_form'); 
         const callbackForm = document.getElementById('callback_form');
         const gift = document.getElementById('gift'); 
         const fixedGift = document.querySelector('.fixed-gift');
+        clubsListUl.style.display = 'none';
 
 
         const openMenu = (elem) => {
@@ -17,13 +19,18 @@ window.addEventListener('DOMContentLoaded', function(){
         const closeMenu = (elem) => {
             elem.style.display = 'none';
         };
+        
+        clubsList.addEventListener('click', () => {
+            if(clubsListUl.style.display === 'none'){
+                clubsListUl.style.display = 'block';
+            } else{
+                clubsListUl.style.display = 'none';
+            }
+        });
 
         body.addEventListener('click', (event) => {
             const target = event.target;
-            console.log(target);
-            if(target.closest('.club-select')){
-                openMenu(clubsListUl);
-            } else if(target.classList.contains('open-popup')){
+            if(target.classList.contains('open-popup')){
                 openMenu(freeVisitForm);
             } else if(target.closest('.callback-btn')){
                 openMenu(callbackForm);
@@ -33,14 +40,9 @@ window.addEventListener('DOMContentLoaded', function(){
                     closeMenu(freeVisitForm);
                     closeMenu(callbackForm);
                     closeMenu(gift);
-                    if(fixedGift.style.display === 'none'){
-                        fixedGift.style.display = 'block';
-                    }
             } else if(target.closest('.fixed-gift')){
                 openMenu(gift);
                 closeMenu(fixedGift);
-            } else{
-                closeMenu(clubsListUl);
             }
         });
     };
@@ -58,7 +60,7 @@ window.addEventListener('DOMContentLoaded', function(){
         window.addEventListener('resize', () => {
             let clientWidth = document.documentElement.clientWidth;
             if(clientWidth > 768){
-                hiddenSmall.style.display = 'block';
+                hiddenSmall.style.display = 'flex';
                 menuButton.style.display = 'none';
             } else{
                 hiddenSmall.style.display = 'none';
@@ -78,9 +80,10 @@ window.addEventListener('DOMContentLoaded', function(){
 
         headerMain.addEventListener('click', (event) => {
             const target = event.target;
-            if(target.closest('.menu-button')){
+            console.log(target);
+            if(target.matches('.menu-button img')){
                 popupMenu.style.display = 'block';
-            } else if(target.closest('.close-menu-btn') || target.closest('.scroll')){
+            } else if(target.matches('.close-menu-btn img') || target.matches('.scroll a')){
                 popupMenu.style.display = 'none';
             }
         });
@@ -92,9 +95,8 @@ window.addEventListener('DOMContentLoaded', function(){
     const addArrow = () => {
         const headerMain = document.querySelector('.header-main');
         const totop = document.getElementById('totop');
-        
         totop.style.display = 'none';
-
+        
         window.addEventListener('scroll', () => {
             let headerMainHeight = headerMain.offsetHeight;
             let pageYOffset = window.pageYOffset;

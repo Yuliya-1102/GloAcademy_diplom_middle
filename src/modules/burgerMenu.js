@@ -4,11 +4,12 @@ const burgerMenu = () => {
     const headerMain = document.querySelector('.header-main');
     const topMenu = document.querySelector('.top-menu');
     const popupMenu = document.querySelector('.popup-menu');
+    // let data = topMenu.getBoundingClientRect();
     
     window.addEventListener('resize', () => {
         let clientWidth = document.documentElement.clientWidth;
         if(clientWidth > 768){
-            hiddenSmall.style.display = 'block';
+            hiddenSmall.style.display = 'flex';
             menuButton.style.display = 'none';
         } else{
             hiddenSmall.style.display = 'none';
@@ -28,9 +29,10 @@ const burgerMenu = () => {
 
     headerMain.addEventListener('click', (event) => {
         const target = event.target;
-        if(target.closest('.menu-button')){
+        console.log(target);
+        if(target.matches('.menu-button img')){
             popupMenu.style.display = 'block';
-        } else if(target.closest('.close-menu-btn') || target.closest('.scroll')){
+        } else if(target.matches('.close-menu-btn img') || target.matches('.scroll a')){
             popupMenu.style.display = 'none';
         }
     });
