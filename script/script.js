@@ -10,6 +10,7 @@ window.addEventListener('DOMContentLoaded', function(){
         const callbackForm = document.getElementById('callback_form');
         const gift = document.getElementById('gift'); 
         const fixedGift = document.querySelector('.fixed-gift');
+        const head = document.querySelector('.head');
         clubsListUl.style.display = 'none';
 
 
@@ -20,10 +21,12 @@ window.addEventListener('DOMContentLoaded', function(){
             elem.style.display = 'none';
         };
         
-        clubsList.addEventListener('click', () => {
-            if(clubsListUl.style.display === 'none'){
+        head.addEventListener('click', (event) => {
+            const target = event.target;
+            console.log(target);
+            if(target.matches('p') && clubsListUl.style.display === 'none'){
                 clubsListUl.style.display = 'block';
-            } else{
+            } else if(!target.closest('ul') || target.matches('a')){
                 clubsListUl.style.display = 'none';
             }
         });
@@ -80,7 +83,6 @@ window.addEventListener('DOMContentLoaded', function(){
 
         headerMain.addEventListener('click', (event) => {
             const target = event.target;
-            console.log(target);
             if(target.matches('.menu-button img')){
                 popupMenu.style.display = 'block';
             } else if(target.matches('.close-menu-btn img') || target.matches('.scroll a')){
