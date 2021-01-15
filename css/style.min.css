@@ -129,6 +129,32 @@ a {
     vertical-align: baseline;
     background: transparent
 }
+.portfolio-btn {
+    position: absolute;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    top: 27%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 36px;
+    height: 36px;
+    background-color:  #ffd11a;
+    border-radius: 50%;
+    -webkit-transition: background-color .2s;
+    transition: background-color .2s
+}
+
+.portfolio-btn.prev {
+    left: 0px;
+    background-image: url(../images/arrow-left.png);
+    background-position: 50% 50%
+}
+
+.portfolio-btn.next {
+    right: 0px;
+    background-image: url(../images/arrow-right.png);
+    background-position: 50% 50%
+}
 
 del {
     text-decoration: line-through
@@ -1392,7 +1418,8 @@ nav.popup-menu .close-menu-btn img {
     float: left
 }
 
-.slider-dots li button {
+.slider-dots li button{
+    float: left;
     width: 22px;
     height: 4px;
     background-color: #fff;
@@ -1534,19 +1561,28 @@ nav.popup-menu .close-menu-btn img {
     padding: 5px 5px 5px 18px;
     margin-right: 5px
 }
-
+.portfolio-wrapper{
+    position: relative;
+    overflow: hidden;
+}
 .services-slider {
     display: flex;
-    margin: 0 auto;
-    padding-left: 15px;
-    padding-right: 15px
+    justify-content: space-between;
+    /* margin: 0 auto; */
+    /* padding-left: 15px;
+    padding-right: 15px; */
+    transition: transform 0.5s;
+    will-change: transform;
+    height: auto;
+    width: 100%;
 }
 
 .services-slider .slide {
+    flex: 0 0 20%;
     text-align: center;
-    margin-right: 6px;
-    margin-left: 6px;
-    width: 210px
+    /* margin-right: 6px;
+    margin-left: 6px; */
+    /* width: 210px */
 }
 
 .services-slider .slide img {
@@ -1602,7 +1638,11 @@ nav.popup-menu .close-menu-btn img {
 }
 
 #gallery .gallery-bg {
-    background: url(../images/gallery-bg.png) left center no-repeat
+    background: url(../images/gallery-bg.png) left center no-repeat;
+    height: 281px;
+    position: relative;
+    margin-bottom: 50px;
+    margin-top: 100px;
 }
 
 #gallery .gallery-slider {
@@ -1614,10 +1654,21 @@ nav.popup-menu .close-menu-btn img {
 }
 
 #gallery .gallery-slider .slide {
-    margin: 0 auto !important;
-    width: 100%
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+    opacity: 0;
+    -webkit-transition: opacity .5s;
+    transition: opacity .5s
 }
-
+#gallery .gallery-slider .gallery-item-active {
+    opacity: 1;
+    -webkit-transition: opacity .5s;
+    transition: opacity .5s
+}
 #gallery .gallery-slider .slider-arrow {
     position: absolute;
     top: 50%;
@@ -1625,7 +1676,10 @@ nav.popup-menu .close-menu-btn img {
     z-index: 100;
     cursor: pointer
 }
-
+.arrow-wrap{
+    position: relative;
+    padding-top: 280px;
+}
 #gallery .gallery-slider .slider-arrow span {
     display: block;
     width: 36px;
@@ -1633,21 +1687,32 @@ nav.popup-menu .close-menu-btn img {
     background-color: #f4c71b;
     border-radius: 50%;
     text-align: center;
-    padding-top: 11px
+    padding-top: 11px;
 }
 
 #gallery .gallery-slider .slider-arrow.prev {
-    left: 0
+    left: -65px;
 }
 
 #gallery .gallery-slider .slider-arrow.next {
-    right: 0
+    right: -65px;
+}
+#gallery .gallery-slider .slider-arrow.prev span{
+    background-image: url('../images/arrow-left.png');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+#gallery .gallery-slider .slider-arrow.next span{
+    background-image: url('../images/arrow-right.png');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
 }
 
 #gallery .gallery-slider .slider-dots {
     left: 50%;
     margin-left: -65px;
-    bottom: 5%
+    bottom: -10%;
 }
 
 #cards {
@@ -2464,7 +2529,7 @@ p.personal-data input[type=checkbox]:checked+label:before {
 
     #gallery .gallery-slider .slider-arrow.next,
     #gallery .gallery-slider .slider-arrow.prev {
-        display: none !important
+        display: block;
     }
 
     #gallery .gallery-slider .slider-dots {

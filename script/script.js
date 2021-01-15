@@ -3,7 +3,8 @@ window.addEventListener('DOMContentLoaded', function(){
 
     // выпадающее меню и модальные окна
     const togglePopUp = () => {
-        const body = document.querySelector('body');
+        try {
+            const body = document.querySelector('body');
         const clubsList = document.querySelector('.clubs-list');
         const clubsListUl = clubsList.querySelector('ul');
         const freeVisitForm = document.getElementById('free_visit_form'); 
@@ -48,6 +49,11 @@ window.addEventListener('DOMContentLoaded', function(){
                 closeMenu(fixedGift);
             }
         });
+    
+        } catch(e) {
+           console.warn(e);
+        }
+        
     };
     togglePopUp();
 
@@ -111,5 +117,6 @@ window.addEventListener('DOMContentLoaded', function(){
     };
     addArrow();
 
+    //слайдер на главной стр
 
 });

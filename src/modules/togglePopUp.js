@@ -1,4 +1,5 @@
 const togglePopUp = () => {
+    try{ 
     const body = document.querySelector('body');
     const clubsList = document.querySelector('.clubs-list');
     const clubsListUl = clubsList.querySelector('ul');
@@ -6,23 +7,15 @@ const togglePopUp = () => {
     const callbackForm = document.getElementById('callback_form');
     const gift = document.getElementById('gift'); 
     const fixedGift = document.querySelector('.fixed-gift');
-    const head = document.querySelector('.head');
+    const headerMain = document.querySelector('.header-main');
     clubsListUl.style.display = 'none';
-
-
-    const openMenu = (elem) => {
-        elem.style.display = 'block';
-    };
-    const closeMenu = (elem) => {
-        elem.style.display = 'none';
-    };
     
-    head.addEventListener('click', (event) => {
+    headerMain.addEventListener('click', (event) => {
         const target = event.target;
-        console.log(target);
         if(target.matches('p') && clubsListUl.style.display === 'none'){
             clubsListUl.style.display = 'block';
-        } else if(!target.closest('ul') || target.matches('a')){
+        } else if(target.matches('ul') || target.matches('a') ||
+            !target.matches('li')){
             clubsListUl.style.display = 'none';
         }
     });
@@ -30,20 +23,33 @@ const togglePopUp = () => {
     body.addEventListener('click', (event) => {
         const target = event.target;
         if(target.classList.contains('open-popup')){
-            openMenu(freeVisitForm);
+             freeVisitForm.style.display = 'block';
         } else if(target.closest('.callback-btn')){
-            openMenu(callbackForm);
+            callbackForm.style.display = 'block';
         } else if(target.classList.contains('overlay') || 
             target.classList.contains('close_icon') || 
             target.classList.contains('close-btn')){
-                closeMenu(freeVisitForm);
-                closeMenu(callbackForm);
-                closeMenu(gift);
-        } else if(target.closest('.fixed-gift')){
-            openMenu(gift);
-            closeMenu(fixedGift);
+                freeVisitForm.style.display = 'none';
+                callbackForm.style.display = 'none';
         }
     });
+          
+    fixedGift.addEventListener('click', () => {
+        gift.style.display = 'block';
+        fixedGift.style.display = 'none';
+    });
+    gift.addEventListener('click', (event) => {
+        const target = event.target;
+
+        if(target.classList.contains('overlay') || 
+            target.classList.contains('close_icon') || 
+            target.classList.contains('close-btn')) {
+            gift.style.display = 'none';
+        }
+    });
+    } catch(error){
+            
+    }
 };
 
 export default togglePopUp;

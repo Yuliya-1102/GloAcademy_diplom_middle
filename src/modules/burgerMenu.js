@@ -29,7 +29,6 @@ const burgerMenu = () => {
 
     headerMain.addEventListener('click', (event) => {
         const target = event.target;
-        console.log(target);
         if(target.matches('.menu-button img')){
             popupMenu.style.display = 'block';
         } else if(target.matches('.close-menu-btn img') || target.matches('.scroll a')){

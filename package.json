@@ -4,13 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "webpack --watch"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yuliya-1102/GloAcademy_diplom_middle.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yuliya-1102/GloAcademy_diplom_middle/issues"
+  },
+  "homepage": "https://github.com/Yuliya-1102/GloAcademy_diplom_middle#readme",
   "devDependencies": {
-    "webpack": "^5.13.0",
+    "webpack": "^5.14.0",
     "webpack-cli": "^4.3.1"
   }
 }
