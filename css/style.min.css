@@ -1578,7 +1578,7 @@ nav.popup-menu .close-menu-btn img {
 }
 
 .services-slider .slide {
-    flex: 0 0 20%;
+    /* flex: 0 0 20%; */
     text-align: center;
     /* margin-right: 6px;
     margin-left: 6px; */
@@ -1662,7 +1662,9 @@ nav.popup-menu .close-menu-btn img {
     width: 100%;
     opacity: 0;
     -webkit-transition: opacity .5s;
-    transition: opacity .5s
+    transition: opacity .5s;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 #gallery .gallery-slider .gallery-item-active {
     opacity: 1;
@@ -2577,9 +2579,15 @@ p.personal-data input[type=checkbox]:checked+label:before {
         -ms-flex-pack: center;
         justify-content: center
     }
+    #gallery .gallery-slider .slider-dots {
+        bottom: 4%;
+    }
 }
 
 @media only screen and (max-width:580px) {
+    #gallery .gallery-slider .slider-dots {
+        bottom: 4%;
+    }
     header .head-main .right {
         -ms-flex-wrap: wrap;
         -o-flex-wrap: wrap;
@@ -2596,6 +2604,9 @@ p.personal-data input[type=checkbox]:checked+label:before {
 
     header .head-main .right .free-visit img {
         margin-right: 15px
+    }
+    #gallery .gallery-slider .slider-dots {
+        bottom: 20%;
     }
 }
 
@@ -2708,6 +2719,7 @@ p.personal-data input[type=checkbox]:checked+label:before {
     .popup .form-content input[type="tel"] {
         width: 80vw
     }
+
 }
 
 @media only screen and (max-width:390px) {
@@ -2731,5 +2743,8 @@ p.personal-data input[type=checkbox]:checked+label:before {
 
     .slider-dots {
         bottom: 30px
+    }
+    #gallery .gallery-slider .slider-dots {
+        display: none;
     }
 }

@@ -6,6 +6,8 @@ import addArrow from './modules/addArrow.js';
 import autoSlider from './modules/autoSlider.js';
 import sliderСarousel from './modules/sliderСarousel.js';
 import sliderPhoto from './modules/sliderPhoto.js';
+import calc from './modules/calc.js';
+
 
 //выпадающее меню и модальные окна
 togglePopUp();
@@ -19,3 +21,5 @@ autoSlider();
 sliderСarousel();
 //слайдер фото
 sliderPhoto();
+//калькулятор
+calc();
