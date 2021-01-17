@@ -1,6 +1,5 @@
 'use strict';
 
-import {a, b, cardsTypes} from './variableM.js';
 
 const calc = () => {
     try{

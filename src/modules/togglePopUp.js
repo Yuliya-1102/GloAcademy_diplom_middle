@@ -8,6 +8,8 @@ const togglePopUp = () => {
     const gift = document.getElementById('gift'); 
     const fixedGift = document.querySelector('.fixed-gift');
     const headerMain = document.querySelector('.header-main');
+    const thanks = document.getElementById('thanks');
+
     clubsListUl.style.display = 'none';
     
     headerMain.addEventListener('click', (event) => {
@@ -22,15 +24,17 @@ const togglePopUp = () => {
 
     body.addEventListener('click', (event) => {
         const target = event.target;
+        console.log(target);
         if(target.classList.contains('open-popup')){
              freeVisitForm.style.display = 'block';
-        } else if(target.closest('.callback-btn')){
+        } else if(target.closest('.callback-btn') && !target.closest('#callback-btn-no')){
             callbackForm.style.display = 'block';
         } else if(target.classList.contains('overlay') || 
             target.classList.contains('close_icon') || 
             target.classList.contains('close-btn')){
                 freeVisitForm.style.display = 'none';
                 callbackForm.style.display = 'none';
+                thanks.style.display = 'none';
         }
     });
           

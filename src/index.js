@@ -7,7 +7,8 @@ import autoSlider from './modules/autoSlider.js';
 import sliderСarousel from './modules/sliderСarousel.js';
 import sliderPhoto from './modules/sliderPhoto.js';
 import calc from './modules/calc.js';
-
+import sendForm from './modules/sendForm.js';
+import maskPhone from './modules/maskPhone.js';
 
 //выпадающее меню и модальные окна
 togglePopUp();
@@ -23,3 +24,7 @@ sliderСarousel();
 sliderPhoto();
 //калькулятор
 calc();
+//работа с формами
+sendForm();
+//валидация формы
+maskPhone('input[type=tel]');
