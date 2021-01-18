@@ -24,7 +24,6 @@ const togglePopUp = () => {
 
     body.addEventListener('click', (event) => {
         const target = event.target;
-        console.log(target);
         if(target.classList.contains('open-popup')){
              freeVisitForm.style.display = 'block';
         } else if(target.closest('.callback-btn') && !target.closest('#callback-btn-no')){

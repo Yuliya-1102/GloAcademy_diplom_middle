@@ -10,7 +10,6 @@ const sendForm = () => {
     const arrForm = [...form];  
     const thanks = document.getElementById('thanks');
     const formContent = thanks.querySelector('p');
-    console.log('formContent: ', formContent);
 
     //создали сообщение
     const statusMessage = document.createElement('div');
@@ -92,9 +91,12 @@ const sendForm = () => {
      const validForm = () => {
         document.querySelector('body').addEventListener('input', (event) => {
             const target = event.target;
-            if(target.type === 'text'){
+            if(target.type === 'text' && target.id !== 'hello'){
                 target.value = target.value.match(/[а-яё]+/gi);
+            } else if(target.id === 'hello'){
+                target.value = target.value.match(/[а-яё0-9]+/gi);
             }
+
         });
     };
     validForm();
