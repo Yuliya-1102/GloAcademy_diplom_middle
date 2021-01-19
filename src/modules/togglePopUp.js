@@ -40,6 +40,9 @@ const togglePopUp = () => {
     fixedGift.addEventListener('click', () => {
         gift.style.display = 'block';
         fixedGift.style.display = 'none';
+        setTimeout(function(){
+            gift.style.display = 'none';
+        }, 3000);
     });
     gift.addEventListener('click', (event) => {
         const target = event.target;
@@ -50,6 +53,7 @@ const togglePopUp = () => {
             gift.style.display = 'none';
         }
     });
+  
     } catch(error){
             
     }

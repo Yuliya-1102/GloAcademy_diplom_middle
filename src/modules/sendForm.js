@@ -6,16 +6,18 @@ const sendForm = () => {
     const confirmMessage = 'Необходимо подтвердить согласие';
     const selectMessage = 'Необходимо выбрать клуб/клубную карту';
 
-    const form = document.querySelectorAll('form');
-    const arrForm = [...form];  
     const thanks = document.getElementById('thanks');
     const formContent = thanks.querySelector('p');
+    const freeVisitForm = document.getElementById('free_visit_form');  
+    const callbackForm = document.getElementById('callback_form');
+    const priceTotal = document.getElementById('price-total');
+
 
     //создали сообщение
     const statusMessage = document.createElement('div');
     statusMessage.style.cssText = 'font-size: 14px';
     statusMessage.style.fontFamily = '"Roboto", sans-serif';
-    statusMessage.style.color = '#ffd11a';
+    statusMessage.style.color = 'red';
     statusMessage.style.marginTop = '5px';
     statusMessage.style.textAlign = 'center';
 
@@ -23,15 +25,11 @@ const sendForm = () => {
     document.querySelector('body').addEventListener('submit', (event) => {
         event.preventDefault();
         let target = event.target;
-        if(target.matches('form')){
-            statusMessage.textContent = loadMessage;
-            target.appendChild(statusMessage);
 
-            if(target.matches('#banner-form') || target.matches('#footer_form')){
-                thanks.style.display = 'block';
-                formContent.textContent = '';
-                formContent.appendChild(statusMessage);
-            }
+        if(target.matches('form')){
+            target.appendChild(statusMessage);
+            addMessage(loadMessage);
+            addWindow(target);
 
             const formData = new FormData(target);
             let body = {};
@@ -43,21 +41,14 @@ const sendForm = () => {
                     if(response.status !== 200){
                         throw new Error('status network not 200');
                     }
-                
-                    statusMessage.textContent = successMesage;
-                    clearForm();
-
-                    setTimeout(function(){
-                        statusMessage.textContent = '';
-                        if(target.matches('#banner-form') || target.matches('#footer_form')){
-                            thanks.style.display = 'none';
-                        }
-                    }, 2000);
+                    addMessage(successMesage);
+                    closeWindow(target);
                 })
                .catch((error) => { //reject, передаются callback в Promise(resolve, reject)
-                    statusMessage.textContent = errorMessage;
+                    addMessage(errorMessage);
                     console.error(error);
                 });
+            resetForm(target);
         }
     });
 
@@ -71,39 +62,66 @@ const sendForm = () => {
         }); //возвращает промис, а выше мы его обработали
     };
 
-     //очистка формы
-     const clearForm = () => {
-        arrForm.forEach(elem => {
-            let elementForm = [...elem.elements].filter(item => {
-                return item.tagName.toUppercase !== 'button' &&
-                item.type !== 'button';
-            });
-            elementForm.forEach(item => {
-                item.value = '';
-                if(item.type === 'checkbox' || item.type === 'radio'){
-                    item.checked = false;
-                }
-            });
-        }); 
+    //добавляет текс в сообщение
+    const addMessage = (message) => {
+        statusMessage.textContent = message;
     };
 
-     //валидация форм
+    //открываем модальные окна без отправки
+    const addWindow = (target) => {
+        if(target.matches('#banner-form') || target.matches('#footer_form')){
+            thanks.style.display = 'block';
+            formContent.textContent = '';
+            formContent.appendChild(statusMessage);
+        }
+    };
+
+    //закрываем все модольные окна
+    const closeWindow = (target) => {
+        setTimeout(function(){
+            statusMessage.textContent = '';
+            if(target.matches('#banner-form') || target.matches('#footer_form') ||
+                target.matches('#form1') || target.matches('#form2')){
+                thanks.style.display = 'none';
+                freeVisitForm.style.display = 'none';
+                callbackForm.style.display = 'none';
+            }
+        }, 2000);
+    };
+
+    //форму возвращаем в первоначальный вид
+    const resetForm = (target) => {
+        target.reset();
+        if(priceTotal){
+            priceTotal.textContent = '1999';    
+        }
+    };
+
+    //валидация форм
      const validForm = () => {
         document.querySelector('body').addEventListener('input', (event) => {
             const target = event.target;
-            if(target.type === 'text' && target.id !== 'hello'){
-                target.value = target.value.match(/[а-яё]+/gi);
-            } else if(target.id === 'hello'){
+            if(target.id === 'hello'){
                 target.value = target.value.match(/[а-яё0-9]+/gi);
-            }
-
+            } else if(target.type === 'text' && target.id !== 'hello'){
+                target.value = target.value.match(/[а-яё]+/gi);
+                target.value.length < 2 ?
+                target.setCustomValidity('Имя должно состоять минимум из двух букв'):
+                target.setCustomValidity('');
+            } else if(target.type === 'tel'){
+                target.value.length < 16 ?
+                target.setCustomValidity('Номер должен состоять минимум из десяти цифр'):
+                target.setCustomValidity('');
+            }  
         });
     };
     validForm();
 
     //проверка галочки в чекбаксах
-    const checkMark = (target) => {
-        if((target.matches('button') && !target.matches('.callback-btn')) || target.matches('#callback-btn-no')){
+    const checkMark = (event) => {
+        const target = event.target;
+        if((target.matches('button') && !target.matches('.callback-btn') && !target.matches('.close-btn')) ||
+         target.matches('#callback-btn-no')){
             let formCurrent = target.closest('form');
             let formCurrentInput = formCurrent.querySelectorAll('input');
                 [...formCurrentInput].forEach((item) => {
@@ -111,9 +129,11 @@ const sendForm = () => {
                         item.setAttribute("required",true);
                         if(!item.checked){
                             if(item.type === 'checkbox'){
-                            statusMessage.textContent = confirmMessage;
+                                addMessage(confirmMessage);
+                            // statusMessage.textContent = confirmMessage;
                             } else if(item.type === 'radio'){
-                            statusMessage.textContent = selectMessage;
+                                addMessage(selectMessage);
+                            // statusMessage.textContent = selectMessage;
                             }
                         formCurrent.appendChild(statusMessage);
                         } 
@@ -121,12 +141,8 @@ const sendForm = () => {
                 });
             }
     };
-
-    document.querySelector('body').addEventListener('click', (event) => {
-        const target = event.target;
-        checkMark(target);
-    });
-   
+    document.querySelector('body').addEventListener('click', checkMark);
+  
 };
 
 export default sendForm;
